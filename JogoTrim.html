@@ -21,14 +21,22 @@
 <p>Você tem uma quantidade de bobinas de papel a serem produzidas numa máquina de papel. A máquina de papel tem uma largura fixa  máxima.</p>
 
 <p>Encaixe as bobinas a serem produzidas, de modo a maximizar a produção - diminuir o waste (largura não útil para a produção de bobinas).</p>
-
+<p id = "svgConteiner">
+</p>
+<p>
+<button onclick="reiniciar()">Reiniciar</button>
+</p>
 
 <script type = "text/javascript">
+	function reiniciar()
+	{
+	location.reload();
+	}
 
-    var svg = d3.select("body")
+    var svg = d3.select("#svgConteiner")
         .append("svg")
         .attr("width", 1520)
-        .attr("height", 1500);
+        .attr("height", 600);
 
 	svg.selectAll("*").remove();
 
@@ -115,7 +123,7 @@
 	svg.append("text")
 			.attr("x", 20)
 			.attr("y", 88)
-			.text("(Arraste as bobinas até a máquina de papel)")
+			.text("(Arraste as bobinas)")
 			.attr("font-size",20)
 				
 	svg.selectAll("circle")
@@ -128,7 +136,7 @@
 		  .attr("height", altura)
 		  .attr("stroke", "black")
 		  .attr("stroke-width", 1)
-		  .attr("fill", "darkblue")
+		  .attr("fill", "royalblue")
 		  .attr("id", function(d,i){return "bob" + i})
 
 		
@@ -163,8 +171,9 @@ var dragHandler = d3.drag()
 		{
 			//Está na Tirada 1
 			//window.alert(d3.select(this).attr("width"));
-			
-			tirada1.push(bobId); //Armazena ID da bobina
+			auxIdx = tirada1.indexOf(bobId);
+			if (auxIdx == -1) { 
+						tirada1.push(bobId); }//Armazena ID da bobina
 			
 			//retira idx das outras tiradas se tiver
 			auxIdx = tirada2.indexOf(bobId);
@@ -181,8 +190,9 @@ var dragHandler = d3.drag()
 		
 		else if (x1 >= (400-20) && x1 <= (900+20) && y1 >= (200 -20) && y1 <= (250+20))
 		{	//window.alert("Tirada2");
-
-			tirada2.push(bobId); //Armazena ID da bobina
+			auxIdx = tirada2.indexOf(bobId);
+			if (auxIdx == -1) { 
+				tirada2.push(bobId);} //Armazena ID da bobina
 
 			//retira idx das outras tiradas se tiver
 			auxIdx = tirada1.indexOf(bobId);
@@ -197,7 +207,9 @@ var dragHandler = d3.drag()
 		else if (x1 >= (400-20) && x1 <= (900+20) && y1 >= (300-20) && y1 <= (350+20))
 		{	
 			//window.alert("Tirada3");
-			tirada3.push(bobId); //Armazena ID da bobina
+			auxIdx = tirada3.indexOf(bobId);
+			if (auxIdx == -1) { 
+			tirada3.push(bobId);} //Armazena ID da bobina
 			
 			//retira idx das outras tiradas se tiver
 			auxIdx = tirada1.indexOf(bobId);
@@ -266,7 +278,7 @@ var dragHandler = d3.drag()
 		for (i=0;i<tirada2.length;i++)
 		{
 		    soma = soma+Larg[tirada2[i]];
-			if ( soma<= 500)
+			if ( soma<= 500)	
 			{
 				swapId = "#bob" + tirada2[i];		
 				d3.select(swapId).attr("x", xini).attr("y", yini);
