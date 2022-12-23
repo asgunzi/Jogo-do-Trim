@@ -64,7 +64,7 @@
     var svg = d3.select("#svgConteiner")
         .append("svg")
         .attr("width", 1520)
-        .attr("height", 1000);
+        .attr("height", 1100);
 
 	svg.selectAll("*").remove();
 
@@ -156,6 +156,7 @@
 			.text("(Arraste as bobinas)")
 			.attr("font-size",20)
 				
+	var escolhacor  = "hsl(" + (Math.random() * 360+0) + ",100%,50%)";
 	svg.selectAll("circle")
 			.data(x0)
 			.enter()
@@ -166,7 +167,7 @@
 		  .attr("height", altura)
 		  .attr("stroke", "black")
 		  .attr("stroke-width", 1)
-		  .attr("fill", "royalblue")
+		  .attr("fill", escolhacor)
 		  .attr("id", function(d,i){return "bob" + i})
 
 		
